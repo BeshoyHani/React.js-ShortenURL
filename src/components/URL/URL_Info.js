@@ -15,7 +15,7 @@ export const URLInfo = ({ handleCategoryChange, URL_category, URL, setURL, URLTi
         'Work',
         'Study',
         'Movies',
-        'Songs',
+        'Music',
     ];
 
     return (
