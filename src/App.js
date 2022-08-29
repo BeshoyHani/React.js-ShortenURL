@@ -7,6 +7,7 @@ import { URLList } from './components/URL/URLList';
 import { Route, Routes } from 'react-router-dom';
 import Login from './components/Registeration/Login';
 import SignUp from './components/Registeration/Signup';
+import { Navbar } from './components/Navbar/Navbar';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <Routes>
         <Route exact path='/login' element={
           <Login />

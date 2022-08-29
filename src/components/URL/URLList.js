@@ -32,17 +32,8 @@ export const URLList = () => {
     };
 
     return (
-
-
-
-        <div>
-
-            <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'space-around',
-            }}>
-                <Box sx={{ overflowX:'hidden', height: '87vh', display: 'inline-block'}}>
+            <Box>
+                <Box sx={{ overflowX:'hidden', height: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '60px', top: '5px'}}>
                     <URLItem />
                     <URLItem />
                     <URLItem />
@@ -73,7 +64,6 @@ export const URLList = () => {
                     <Pagination count={10} page={page} onChange={handlePageChange} color='primary' />
                 </Box>
             </Box >
-        </div>
 
 
     );

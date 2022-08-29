@@ -8,7 +8,7 @@ import { Fab } from '@mui/material';
 
 export const URLItem = () => {
     return (
-        <Box component="main" sx={{...ContainerStyle, width: 0.97, margin: 3}}>
+        <Box component="main" sx={{...ContainerStyle, width: 0.97, marginTop: 2}}>
             <Box sx={{
                 display: 'flex',
                 width: 1,
