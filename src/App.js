@@ -2,7 +2,6 @@ import './App.css';
 import { ShortenURL } from './components/URL/Shorten';
 import { useState } from 'react';
 import { URL } from './components/URL/URL';
-import { URLItem } from './components/URL/URLItem';
 import { URLList } from './components/URL/URLList';
 import { Route, Routes } from 'react-router-dom';
 import Login from './components/Registeration/Login';
@@ -13,6 +12,7 @@ function App() {
 
   const [URLCategory, setURLCategory] = useState('None');
   const [URLTitle, setURLTitle] = useState('');
+  const [userInfo, setUserInfo] = useState(null);
 
   const handleCategoryChange = (event) => {
     setURLCategory(event.target.value);
@@ -27,7 +27,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route exact path='/login' element={
-          <Login />
+          <Login setUserInfo={setUserInfo} />
         } />
 
         <Route exact path='/signup' element={

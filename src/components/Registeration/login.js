@@ -13,6 +13,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ContainerStyle } from '../../styles/style';
+import { login } from '../../config/shorten_URL_API';
+import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
+import { useState } from 'react';
 
 function Copyright(props) {
     return (
@@ -29,14 +33,33 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login() {
-    const handleSubmit = (event) => {
+export default function Login({ setUserInfo }) {
+
+    const navigate = useNavigate();
+    const [response, setResponse] = useState('');
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        const email = data.get('email');
+        const password = data.get('password');
+        if (!email) {
+            setResponse('Username Can\'t be Empty');
+            return;
+        } else if (!password) {
+            setResponse('Password Can\'t be Empty');
+            return;
+        }
+        let res;
+        try {
+            res = await login(email, password);
+            setUserInfo(res.user);
+            navigate('/');
+        } catch (error) {
+            console.log(error.message)
+            setResponse(error.message);
+        }
     };
 
     return (
@@ -78,6 +101,11 @@ export default function Login() {
                             id="password"
                             autoComplete="current-password"
                         />
+                        {
+                            response &&
+                            <Alert severity="error">{response}</Alert>
+                        }
+
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@mui/material/Container';
 import { ContainerStyle } from './../../styles/style';
+import { signup } from '../../config/shorten_URL_API';
+import { useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
 
 function Copyright() {
     return (
@@ -46,13 +49,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
     const classes = useStyles();
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
+    const submit = async () => {
+        const [_username, _email, _password] = [username.trim(), email.trim(), password];
+        if (_password !== password2) {
+            setError('Password Doesn\'t Match!');
+            return;
+        }
+        if (!_username || !_email || !_password) {
+            setError('Please, Fill in all fields');
+            return; 
+        }
+        try {
+            await signup(_username, _email, _password);
+            navigate('/login');
+        } catch (error) {
+            setError(error.message);
+        }
+    }
 
     return (
         <Container component="main" maxWidth="xs" sx={ContainerStyle}>
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                  
+
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign up
@@ -69,6 +96,8 @@ export default function SignUp() {
                                 id="firstName"
                                 label="Username"
                                 autoFocus
+                                value={username}
+                                onChange={(event) => setUsername(event.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -80,6 +109,8 @@ export default function SignUp() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -92,6 +123,8 @@ export default function SignUp() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
                             />
                         </Grid>
 
@@ -104,15 +137,22 @@ export default function SignUp() {
                                 label="Confirm Password"
                                 name="confirm_password"
                                 autoComplete="current-password"
+                                value={password2}
+                                onChange={(event) => setPassword2(event.target.value)}
                             />
                         </Grid>
                     </Grid>
+
+                    {
+                        error.length > 0 &&
+                        <Alert severity="error" sx={{ width: '100%', }}> {error}</Alert>
+                    }
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick = {() => submit()}
                     >
                         Sign Up
                     </Button>

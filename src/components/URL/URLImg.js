@@ -6,13 +6,13 @@ export const URLImg = ({ imgURL, alt }) => {
             component="img"
             sx={{
                 margin: 2,
-                height: 200,
-                width: 150,
-                maxHeight: { xs: 500, md: 400 },
-                maxWidth: { xs: 350, md: 250 },
+                height: '300',
+                width: '500',
+                maxHeight: { xs: 300, md: 250 },
+                maxWidth: { xs: 200, md: 400 },
             }}
             alt={alt}
-            src={imgURL}
+            src={imgURL || 'https://res.cloudinary.com/dpecxlfg2/image/upload/v1662063078/urls_preview/images_rvmnod.png'}
         />
     );
 }

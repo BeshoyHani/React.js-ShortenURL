@@ -7,9 +7,13 @@ import Select from '@mui/material/Select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { Fab } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import { useState } from 'react';
 
-export const URLInfo = ({ handleCategoryChange, URL_category, URL, setURL, URLTitle, setURLTitle, isURLDisabled }) => {
+export const URLInfo = ({ setURLCategory, URL_category, URL, setURL, URLTitle, setURLTitle, isURLDisabled }) => {
 
+    const [isCopied, setCopyStatus] = useState(false);
     const URL_category_list = [
         'None',
         'Work',
@@ -17,6 +21,13 @@ export const URLInfo = ({ handleCategoryChange, URL_category, URL, setURL, URLTi
         'Movies',
         'Music',
     ];
+
+    const copyURL = (event) => {
+        event.preventDefault();
+        navigator.clipboard.writeText(URL);
+        setCopyStatus(true);
+        console.log('b')
+    }
 
     return (
         <Box
@@ -28,24 +39,41 @@ export const URLInfo = ({ handleCategoryChange, URL_category, URL, setURL, URLTi
                 alignItems: 'center',
                 width: 0.7
             }}>
-            <Box sx={{ display: 'flex', width:1, justifyContent:'space-between' }}>
+
+            {
+
+                isCopied &&
+                <Snackbar open={isCopied} autoHideDuration={4000} onClose={()=> {setCopyStatus(false)}}>
+                    <Alert onClose={() =>{setCopyStatus(false)}} severity="success" sx={{ width: '100%' }}>
+                        Copied!
+                    </Alert>
+                </Snackbar>
+
+            }
+            <Box sx={{ display: 'flex', width: 1, justifyContent: 'space-between' }}>
                 <TextField
                     margin="normal"
                     required
                     fullWidth
                     id="oURL"
-                    label="URL"
+                    label={"URL"}
                     name="URL"
                     autoComplete="UEL"
                     autoFocus
                     value={URL}
-                    disabled={isURLDisabled}
+                    disabled={false}
                     onChange={setURL}
+                    sx={{ color: 'black' }}
                 />
-                <Fab color="primary" sx={{margin:2}}>
-                    <FontAwesomeIcon icon={faCopy} />
-                </Fab>
+
+                {
+                    isURLDisabled &&
+                    <Fab color="primary" sx={{ margin: 2 }} onClick={copyURL}>
+                        <FontAwesomeIcon icon={faCopy} />
+                    </Fab>
+                }
             </Box>
+
 
             <Box sx={{ display: 'flex', width: 1 }}>
                 <TextField
@@ -70,7 +98,7 @@ export const URLInfo = ({ handleCategoryChange, URL_category, URL, setURL, URLTi
                         id="category_select"
                         value={URL_category}
                         label="Age"
-                        onChange={handleCategoryChange}
+                        onChange={setURLCategory}
                     >
                         {URL_category_list.map(category => <MenuItem key={category} value={category}>{category}</MenuItem>)}
                     </Select>
