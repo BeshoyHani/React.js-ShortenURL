@@ -24,13 +24,17 @@ export const ShortenURL = ({ URLTitle, setURLTitle, URLCategory, setURLCategory 
     const [submitBtnStatus, setSubmitBtnStatus] = useState(false);
     const navigate = useNavigate();
 
+    // if (true) {
+    //     return <Navigate to="/login" replace />;
+    //   }
+
     const handleURLInput = (event) => {
         setURL(event.target.value);
     }
 
-    useEffect(() => {
-        // window.history.pushState(null, document.title, window.location.href);
-    })
+    // useEffect(() => {
+    //     // window.history.pushState(null, document.title, window.location.href);
+    // })
 
     const handleSubmit = async () => {
         if (!URL.trim()) {

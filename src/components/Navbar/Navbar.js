@@ -16,11 +16,13 @@ import { blue } from '@mui/material/colors';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
-const settings = [
+let settings = [
+    { 'name': 'Login', 'url': '/login' },
     { 'name': 'Account', 'url': '' },
     { 'name': 'My URLs', 'url': 'my/urls' },
-    { 'name': 'Logout', 'url': '/logout' }
+    { 'name': 'Logout', 'url': '/logout' },
 ];
 
 
@@ -70,6 +72,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const Navbar = () => {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [searchValue, setSearchValue] = useState('');
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+
+    useEffect(() => {
+        settings = isAuthenticated ? settings.filter(item => item.name !== 'Login') : settings.filter(item => item.name === 'Login');
+    })
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -113,7 +120,7 @@ export const Navbar = () => {
                         >
                             Besh
                         </Typography>
-                        
+
                     </Box>
 
 
@@ -134,7 +141,7 @@ export const Navbar = () => {
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar sx={{ bgcolor: blue[500] }}>B</Avatar>
+                                    <Avatar sx={{ bgcolor: blue[500] }}>B</Avatar>
                                 </IconButton>
                             </Tooltip>
                             <Menu
@@ -153,14 +160,15 @@ export const Navbar = () => {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                                        <Link to={setting.url} style={{ textDecoration: 'none', color: 'black' }}>
-                                            <Typography textAlign="center">{setting.name}</Typography>
-                                        </Link>
-                                    </MenuItem>
+                                {
+                                    settings.map((setting) => (
+                                        <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                                            <Link to={setting.url} style={{ textDecoration: 'none', color: 'black' }}>
+                                                <Typography textAlign="center">{setting.name}</Typography>
+                                            </Link>
+                                        </MenuItem>
 
-                                ))}
+                                    ))}
                             </Menu>
                         </Box>
                     </Box>

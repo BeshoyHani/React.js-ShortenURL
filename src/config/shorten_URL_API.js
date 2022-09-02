@@ -1,6 +1,6 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://be-h.herokuapp.com';
 
 export const login = async (username, password) => {
     let res;
@@ -101,6 +101,17 @@ export const get_urls_count = async (category) => {
         return res.data;
     } catch (error) {
         console.log(error)
+        throw Error(error.response.data);
+    }
+}
+
+export const redirect_to_originalURL = async (URL_ID) => {
+    try {
+        const URL = baseURL + `/link/redirect/${URL_ID}`;
+        const res = await axios.get(URL);
+        return res.data;
+    } catch (error) {
+        console.log(error.message)
         throw Error(error.response.data);
     }
 }

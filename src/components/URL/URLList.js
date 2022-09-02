@@ -12,6 +12,7 @@ import { useState, useEffect, useRef } from 'react';
 import { get_my_urls } from "../../config/shorten_URL_API";
 import { get_urls_count } from './../../config/shorten_URL_API';
 import Alert from '@mui/material/Alert';
+import { Link } from "react-router-dom";
 
 
 export const URLList = () => {
@@ -80,14 +81,20 @@ export const URLList = () => {
     return (
         <Box>
             {
-                urlList.length?
-                <Box sx={{ overflowX: 'hidden', height: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '60px', top: '5px' }}>
-                    {
-                        urlList.map(url => <URLItem key={url._id} imageURL={url.img} title={url.title} shortURL={url.shortURL} />)
-                    }
-                </Box>
-                :
-                <Alert severity="error" sx={{ width: '100%',  }}> Oops! No URLs found</Alert>
+                urlList.length ?
+                    <Box sx={{ overflowX: 'hidden', height: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '60px', top: '5px' }}>
+                        {
+                            urlList.map(url => {
+                                return (
+                                    <Link to={`${url._id}`}  key={url._id} style={{ textDecoration: 'none', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                                        <URLItem imageURL={url.img} title={url.title} shortURL={url.shortURL} />
+                                    </Link>
+                                )
+                            })
+                        }
+                    </Box>
+                    :
+                    <Alert severity="error" sx={{ width: '100%', }}> Oops! No URLs found</Alert>
             }
             <BottomNavigation value={tabValue} onChange={handleNavBarChange}
                 style={{

@@ -55,7 +55,8 @@ export default function Login({ setUserInfo }) {
         try {
             res = await login(email, password);
             setUserInfo(res.user);
-            navigate('/');
+            localStorage.setItem("isAuthenticated", "true");
+            navigate('../', { replace: true });
         } catch (error) {
             console.log(error.message)
             setResponse(error.message);
@@ -125,7 +126,7 @@ export default function Login({ setUserInfo }) {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/signup" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

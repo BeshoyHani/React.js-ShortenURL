@@ -10,6 +10,7 @@ import { Fab } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { useState } from 'react';
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 export const URLInfo = ({ setURLCategory, URL_category, URL, setURL, URLTitle, setURLTitle, isURLDisabled }) => {
 
@@ -60,7 +61,7 @@ export const URLInfo = ({ setURLCategory, URL_category, URL, setURL, URLTitle, s
                     name="URL"
                     autoComplete="UEL"
                     autoFocus
-                    value={URL}
+                    value={!isDisabled? `be-h.herokuapp.com/${URL}`: URL}
                     disabled={false}
                     onChange={setURL}
                     sx={{ color: 'black' }}

@@ -24,10 +24,12 @@ export const URL = () => {
         "shortURL": '',
         'userID': ''
     }
+    const isAuth = localStorage.getItem("isAuthenticated");
     const [URLCategory, setURLCategory] = useState('');
     const [URLTitle, setURLTitle] = useState('');
     const [URLData, setURLData] = useState(jsonObj);
     const [openAlert, setOpenAlert] = useState(false);
+    const [authAlert, setAuthAlert] = useState(!!isAuth);
     const URLID = useParams().id;
     const navigate = useNavigate();
     const isInitialMount = useRef(true);
@@ -104,6 +106,12 @@ export const URL = () => {
             <Snackbar open={openAlert} autoHideDuration={4000} onClose={() => { setOpenAlert(false) }}>
                 <Alert onClose={() => { setOpenAlert(false) }} severity="success" sx={{ width: '100%' }}>
                     Updated!
+                </Alert>
+            </Snackbar>
+
+            <Snackbar open={authAlert} autoHideDuration={4000} onClose={() => { setAuthAlert(false) }}>
+                <Alert onClose={() => { setAuthAlert(false) }} severity="success" sx={{ width: '100%' }}>
+                    Your URL will ba valid for 12 hours!
                 </Alert>
             </Snackbar>
         </Container>

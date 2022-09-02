@@ -52,7 +52,7 @@ export const URLItem = ({ imageURL, title, shortURL }) => {
                             name="URL"
                             autoComplete="UEL"
                             autoFocus
-                            value={shortURL}
+                            value={`be-h.herokuapp.com/${shortURL}`}
                         />
                         <Fab color="primary" sx={{ margin: 2 }} onClick={copyURL}>
                             <FontAwesomeIcon icon={faCopy} />
