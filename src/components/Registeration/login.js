@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
 
-function Copyright(props) {
+function Copyright(props) { 
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
             {'Copyright © '}
