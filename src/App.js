@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar username={userInfo? userInfo.username.toUpperCase(): 'B'} />
       <Routes>
         <Route exact path='/login' element={
           <ProtectRegisterationRoute path={location.pathname} child={
@@ -43,10 +43,8 @@ function App() {
         } />
 
         <Route exact path='/' element={
-          <ProtectedRoute child={
             <ShortenURL URLTitle={URLTitle} setURLTitle={handleURLTitleInput}
               URLCategory={URLCategory} setURLCategory={handleCategoryChange} />
-          } />
         } />
 
         <Route exact path='my/urls' element={

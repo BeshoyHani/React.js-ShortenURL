@@ -87,7 +87,7 @@ export default function Login({ setUserInfo }) {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="username/email"
                             name="email"
                             autoComplete="email"
                             autoFocus

@@ -1,13 +1,23 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-const baseURL = 'https://be-h.herokuapp.com';
+const baseURL = 'http://localhost:3000'//'https://be-h.herokuapp.com';
 
 export const login = async (username, password) => {
     let res;
     try {
         const URL = baseURL + '/login';
-        res = await axios.post(URL, { username: username, password: password });
+        res = await axios.post(URL, { username: username, email: username, password: password });
         return res.data;
+    } catch (error) {
+        throw Error(error.response.data);
+    }
+}
+
+export const logout = async () => {
+    try {
+        const URL = baseURL + '/logout';
+        await axios.post(URL);
+        return true;
     } catch (error) {
         throw Error(error.response.data);
     }

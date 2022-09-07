@@ -14,7 +14,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Alert } from '@mui/material';
 import { shorten_url } from '../../config/shorten_URL_API';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 
 export const ShortenURL = ({ URLTitle, setURLTitle, URLCategory, setURLCategory }) => {
@@ -63,7 +62,7 @@ export const ShortenURL = ({ URLTitle, setURLTitle, URLCategory, setURLCategory 
                 Shorten URL
             </Typography>
 
-            <URLInfo handleCategoryChange={setURLCategory} URL_category={URLCategory}
+            <URLInfo setURLCategory={setURLCategory} URL_category={URLCategory}
                 URL={URL} setURL={handleURLInput} URLTitle={URLTitle} setURLTitle={setURLTitle}
                 isURLDisabled={false} />
 

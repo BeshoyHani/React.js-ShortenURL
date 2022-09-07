@@ -69,7 +69,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export const Navbar = () => {
+export const Navbar = ({username}) => {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [searchValue, setSearchValue] = useState('');
     const isAuthenticated = localStorage.getItem("isAuthenticated");
@@ -141,7 +141,7 @@ export const Navbar = () => {
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar sx={{ bgcolor: blue[500] }}>B</Avatar>
+                                    <Avatar sx={{ bgcolor: blue[500] }}>{username[0]}</Avatar>
                                 </IconButton>
                             </Tooltip>
                             <Menu
