@@ -10,12 +10,14 @@ import { Navbar } from './components/Navbar/Navbar';
 import { useLocation } from 'react-router-dom'
 import { ProtectedRoute, ProtectRegisterationRoute } from './components/Protection/ProtectedRoute';
 import { Redirect } from './components/URL/Redirect';
+import Logout from './components/Registeration/Logout';
 
 function App() {
 
   const [URLCategory, setURLCategory] = useState('None');
   const [URLTitle, setURLTitle] = useState('');
   const [userInfo, setUserInfo] = useState(null);
+  const [isAuth, setIsAuth] = useState(false);
   const location = useLocation();
 
   const handleCategoryChange = (event) => {
@@ -28,11 +30,17 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar username={userInfo? userInfo.username.toUpperCase(): 'B'} />
+      <Navbar username={userInfo ? userInfo.username.toUpperCase() : 'B'} isAuth={isAuth}/>
       <Routes>
         <Route exact path='/login' element={
           <ProtectRegisterationRoute path={location.pathname} child={
-            <Login setUserInfo={setUserInfo} />
+            <Login setUserInfo={setUserInfo} setIsAuth={setIsAuth} />
+          } />
+        } />
+
+        <Route exact path='/logout' element={
+          <ProtectedRoute path={location.pathname} child={
+            <Logout setIsAuth={setIsAuth} />
           } />
         } />
 
@@ -43,8 +51,8 @@ function App() {
         } />
 
         <Route exact path='/' element={
-            <ShortenURL URLTitle={URLTitle} setURLTitle={handleURLTitleInput}
-              URLCategory={URLCategory} setURLCategory={handleCategoryChange} />
+          <ShortenURL URLTitle={URLTitle} setURLTitle={handleURLTitleInput}
+            URLCategory={URLCategory} setURLCategory={handleCategoryChange} />
         } />
 
         <Route exact path='my/urls' element={
@@ -54,11 +62,11 @@ function App() {
         } />
 
         <Route path='my/urls/:id' element={
-            <URL />
+          <URL />
         } />
 
         <Route path='/:id' element={
-            <Redirect/>
+          <Redirect />
         } />
       </Routes>
     </div>

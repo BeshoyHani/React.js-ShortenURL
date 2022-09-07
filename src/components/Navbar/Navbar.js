@@ -18,7 +18,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
-let settings = [
+let settingsItems = [
     { 'name': 'Login', 'url': '/login' },
     { 'name': 'Account', 'url': '' },
     { 'name': 'My URLs', 'url': 'my/urls' },
@@ -69,14 +69,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export const Navbar = ({username}) => {
+export const Navbar = ({ username, isAuth }) => {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [searchValue, setSearchValue] = useState('');
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    const [settings, setSettings] = useState([]);
 
     useEffect(() => {
-        settings = isAuthenticated ? settings.filter(item => item.name !== 'Login') : settings.filter(item => item.name === 'Login');
-    })
+        setSettings(() =>
+            isAuth ?
+                settingsItems.filter(item => item.name !== 'Login')
+                :
+                settingsItems.filter(item => item.name === 'Login'));
+
+    }, [isAuth])
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);

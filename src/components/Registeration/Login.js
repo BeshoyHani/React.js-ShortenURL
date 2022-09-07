@@ -33,7 +33,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login({ setUserInfo }) {
+export default function Login({ setUserInfo, setIsAuth }) {
 
     const navigate = useNavigate();
     const [response, setResponse] = useState('');
@@ -56,6 +56,7 @@ export default function Login({ setUserInfo }) {
             res = await login(email, password);
             setUserInfo(res.user);
             localStorage.setItem("isAuthenticated", "true");
+            setIsAuth(true);
             navigate('../', { replace: true });
         } catch (error) {
             console.log(error.message)
