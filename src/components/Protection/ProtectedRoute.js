@@ -10,7 +10,7 @@ export const ProtectedRoute = ({child}) => {
 
 export const ProtectRegisterationRoute = ({ path, child }) => {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
-    if (isAuthenticated) {
+    if (isAuthenticated === true) {
         return <Navigate to={'../'} replace />;
     }
     return child;

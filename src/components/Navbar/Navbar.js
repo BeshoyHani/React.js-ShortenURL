@@ -76,7 +76,7 @@ export const Navbar = ({ username, isAuth }) => {
 
     useEffect(() => {
         setSettings(() =>
-            isAuth ?
+            isAuth === true ?
                 settingsItems.filter(item => item.name !== 'Login')
                 :
                 settingsItems.filter(item => item.name === 'Login'));

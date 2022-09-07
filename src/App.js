@@ -17,7 +17,7 @@ function App() {
   const [URLCategory, setURLCategory] = useState('None');
   const [URLTitle, setURLTitle] = useState('');
   const [userInfo, setUserInfo] = useState(null);
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuthenticated'));
   const location = useLocation();
 
   const handleCategoryChange = (event) => {
