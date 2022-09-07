@@ -1,6 +1,6 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-const baseURL = 'http://localhost:3000'//'https://be-h.herokuapp.com';
+const baseURL = 'https://be-h.herokuapp.com';
 
 export const login = async (username, password) => {
     let res;
