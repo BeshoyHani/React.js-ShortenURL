@@ -63,7 +63,7 @@ function App() {
         } />
 
         <Route path='my/urls/:id' element={
-          <URL isAuth={isAuth}/>
+          <URL isAuth={isAuth} firstTime={true}/>
         } />
 
         <Route path='/:id' element={

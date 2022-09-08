@@ -14,7 +14,7 @@ import { update_url_info, get_url_info } from './../../config/shorten_URL_API';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 
-export const URL = ({ isAuth }) => {
+export const URL = ({ isAuth, firstTime }) => {
     const jsonObj = {
         "_id": "",
         "title": "",
@@ -28,7 +28,7 @@ export const URL = ({ isAuth }) => {
     const [URLTitle, setURLTitle] = useState('');
     const [URLData, setURLData] = useState(jsonObj);
     const [openAlert, setOpenAlert] = useState(false);
-    const [authAlert, setAuthAlert] = useState(isAuth? false: true);
+    const [authAlert, setAuthAlert] = useState(!isAuth && firstTime? true: false);
     const URLID = useParams().id;
     const navigate = useNavigate();
     const isInitialMount = useRef(true);

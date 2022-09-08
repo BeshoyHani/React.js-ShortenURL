@@ -38,7 +38,7 @@ export const URLInfo = ({ setURLCategory, URL_category, URL, setURL, URLTitle, s
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                width: 0.7
+                width: 0.9
             }}>
 
             {
