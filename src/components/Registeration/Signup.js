@@ -17,12 +17,10 @@ import Alert from '@mui/material/Alert';
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
+            {'Made with ❤️ by '}
             <Link color="inherit" href="https://github.com/BeshoyHan/">
                 Besh
             </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
         </Typography>
     );
 }

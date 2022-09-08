@@ -21,12 +21,10 @@ import { useState } from 'react';
 function Copyright(props) { 
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
+            {'Made with ❤️ by '}
             <Link color="inherit" href="https://mui.com/">
-                Your Website
+                Besh
             </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
         </Typography>
     );
 }
@@ -55,7 +53,7 @@ export default function Login({ setUserInfo, setIsAuth }) {
         try {
             res = await login(email, password);
             setUserInfo(res.user);
-            localStorage.setItem("isAuthenticated", "true");
+            localStorage.setItem("isAuthenticated", true);
             setIsAuth(true);
             navigate('../', { replace: true });
         } catch (error) {
@@ -107,11 +105,6 @@ export default function Login({ setUserInfo, setIsAuth }) {
                             response &&
                             <Alert severity="error">{response}</Alert>
                         }
-
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
                         <Button
                             type="submit"
                             fullWidth

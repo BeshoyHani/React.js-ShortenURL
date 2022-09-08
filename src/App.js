@@ -14,10 +14,11 @@ import Logout from './components/Registeration/Logout';
 
 function App() {
 
+  const isAuthenticated = localStorage.getItem('isAuthenticated')? true: false;
   const [URLCategory, setURLCategory] = useState('None');
   const [URLTitle, setURLTitle] = useState('');
   const [userInfo, setUserInfo] = useState(null);
-  const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuthenticated'));
+  const [isAuth, setIsAuth] = useState(isAuthenticated);
   const location = useLocation();
 
   const handleCategoryChange = (event) => {
@@ -62,7 +63,7 @@ function App() {
         } />
 
         <Route path='my/urls/:id' element={
-          <URL />
+          <URL isAuth={isAuth}/>
         } />
 
         <Route path='/:id' element={

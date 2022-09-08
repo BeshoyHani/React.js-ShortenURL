@@ -77,9 +77,9 @@ export const Navbar = ({ username, isAuth }) => {
     useEffect(() => {
         setSettings(() =>
             isAuth === true ?
-                settingsItems.filter(item => item.name !== 'Login')
+                settingsItems.filter(item => item.name.toLocaleLowerCase() !== 'login')
                 :
-                settingsItems.filter(item => item.name === 'Login'));
+                settingsItems.filter(item => item.name.toLocaleLowerCase() === 'login'));
 
     }, [isAuth])
 
@@ -168,9 +168,9 @@ export const Navbar = ({ username, isAuth }) => {
                                 {
                                     settings.map((setting) => (
                                         <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                                            <Link to={setting.url} style={{ textDecoration: 'none', color: 'black' }}>
+                                            <a href={'https://be-h.vercel.app/'+setting.url} style={{ textDecoration: 'none', color: 'black' }}>
                                                 <Typography textAlign="center">{setting.name}</Typography>
-                                            </Link>
+                                            </a>
                                         </MenuItem>
 
                                     ))}

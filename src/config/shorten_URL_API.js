@@ -1,12 +1,15 @@
 import axios from 'axios';
-axios.defaults.withCredentials = true;
-const baseURL = 'https://be-h.herokuapp.com';
+axios.defaults.withCredentials = false;
+axios.defaults.headers.Authorization = localStorage.getItem('isAuthenticated')? localStorage.getItem('access_token'): '';
+const baseURL = 'http://localhost:3000';//'https://be-h.herokuapp.com';
 
 export const login = async (username, password) => {
     let res;
     try {
         const URL = baseURL + '/login';
         res = await axios.post(URL, { username: username, email: username, password: password });
+        axios.defaults.headers.Authorization = res.data.token;
+        localStorage.setItem('access_token', res.data.token);
         return res.data;
     } catch (error) {
         throw Error(error.response.data);

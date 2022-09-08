@@ -14,7 +14,7 @@ import { update_url_info, get_url_info } from './../../config/shorten_URL_API';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 
-export const URL = () => {
+export const URL = ({ isAuth }) => {
     const jsonObj = {
         "_id": "",
         "title": "",
@@ -24,7 +24,6 @@ export const URL = () => {
         "shortURL": '',
         'userID': ''
     }
-    const isAuth = localStorage.getItem("isAuthenticated");
     const [URLCategory, setURLCategory] = useState('');
     const [URLTitle, setURLTitle] = useState('');
     const [URLData, setURLData] = useState(jsonObj);
@@ -81,27 +80,31 @@ export const URL = () => {
     }
 
     return (
-        <Container component="main" sx={ContainerStyle}>
+        <Container component="main" sx={{ ...ContainerStyle, maxWidth: { xs: 0.95, sm: 0.95, md: 0.8, lg: 0.6, xl: 0.6 } }}>
             <CssBaseline />
             <URLImg alt={URLData.title}
                 imgURL={URLData.img} />
             <URLInfo URL_category={URLCategory} URLTitle={URLTitle} URL={URLData.shortURL}
                 setURLTitle={handleURLTitleInput} setURLCategory={handleCategoryChange} isURLDisabled={true} />
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    width: 1,
-                    marginBottom: 3
-                }}>
-                <Fab color="default" aria-label="edit" sx={{ margin: 1 }} onClick={() => updateURL()}>
-                    <EditIcon />
-                </Fab>
+            {
+                isAuth &&
 
-                <Fab color="error" aria-label="delete" sx={{ margin: 1 }} onClick={() => deleteURL()}>
-                    <DeleteIcon />
-                </Fab>
-            </Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        width: 1,
+                        marginBottom: 3
+                    }}>
+                    <Fab color="default" aria-label="edit" sx={{ margin: 1 }} onClick={() => updateURL()}>
+                        <EditIcon />
+                    </Fab>
+
+                    <Fab color="error" aria-label="delete" sx={{ margin: 1 }} onClick={() => deleteURL()}>
+                        <DeleteIcon />
+                    </Fab>
+                </Box>
+            }
 
             <Snackbar open={openAlert} autoHideDuration={4000} onClose={() => { setOpenAlert(false) }}>
                 <Alert onClose={() => { setOpenAlert(false) }} severity="success" sx={{ width: '100%' }}>
