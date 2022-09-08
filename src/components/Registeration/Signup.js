@@ -18,7 +18,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Made with ❤️ by '}
-            <Link color="inherit" href="https://github.com/BeshoyHan/">
+            <Link color="inherit" href="https://github.com/BeshoyHani">
                 Besh
             </Link>{' '}
         </Typography>
