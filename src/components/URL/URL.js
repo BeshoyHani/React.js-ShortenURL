@@ -80,7 +80,7 @@ export const URL = ({ isAuth }) => {
     }
 
     return (
-        <Container component="main" sx={{ ...ContainerStyle, width: 0.95 }}>
+        <Container component="main" sx={ContainerStyle}>
             <CssBaseline />
             <URLImg alt={URLData.title}
                 imgURL={URLData.img} />

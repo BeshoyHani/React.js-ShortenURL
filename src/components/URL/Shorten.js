@@ -51,7 +51,7 @@ export const ShortenURL = ({ URLTitle, setURLTitle, URLCategory, setURLCategory 
     }
 
     return (
-        <Container component="main" sx={{ ...ContainerStyle, width: 0.95 }}>
+        <Container component="main" sx={ContainerStyle}>
             <CssBaseline />
 
             <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
