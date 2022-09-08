@@ -61,7 +61,7 @@ export const URLInfo = ({ setURLCategory, URL_category, URL, setURL, URLTitle, s
                     name="URL"
                     autoComplete="UEL"
                     autoFocus
-                    value={!isDisabled? `be-h.herokuapp.com/${URL}`: URL}
+                    value={URL}
                     disabled={false}
                     onChange={setURL}
                     sx={{ color: 'black' }}
