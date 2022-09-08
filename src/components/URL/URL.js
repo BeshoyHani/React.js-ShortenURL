@@ -28,7 +28,7 @@ export const URL = ({ isAuth }) => {
     const [URLTitle, setURLTitle] = useState('');
     const [URLData, setURLData] = useState(jsonObj);
     const [openAlert, setOpenAlert] = useState(false);
-    const [authAlert, setAuthAlert] = useState(!!isAuth);
+    const [authAlert, setAuthAlert] = useState(isAuth? false: true);
     const URLID = useParams().id;
     const navigate = useNavigate();
     const isInitialMount = useRef(true);
