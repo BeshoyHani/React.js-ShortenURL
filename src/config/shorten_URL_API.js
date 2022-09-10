@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = false;
 axios.defaults.headers.Authorization = localStorage.getItem('isAuthenticated') ? localStorage.getItem('access_token') : '';
-const baseURL = 'http://localhost:3000';//'https://be-h.herokuapp.com';
+const baseURL = 'https://be-h.herokuapp.com';
 
 export const login = async (username, password) => {
     let res;
