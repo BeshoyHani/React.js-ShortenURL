@@ -5,15 +5,25 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import MovieIcon from '@mui/icons-material/Movie';
 import AllIcon from '@mui/icons-material/FormatAlignJustify';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import Pagination from '@material-ui/lab/Pagination';
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import Pagination from '@mui/material/Pagination';
 import { useState, useEffect, useRef } from 'react';
 import { get_my_urls } from "../../config/shorten_URL_API";
 import { get_urls_count } from './../../config/shorten_URL_API';
 import Alert from '@mui/material/Alert';
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
+
+
+const useStyles = makeStyles(() => ({
+    ul: {
+      "& .MuiPaginationItem-root": {
+        color: "#fff"
+      }
+    }
+  }));
 
 export const URLList = () => {
 
@@ -26,18 +36,18 @@ export const URLList = () => {
     ];
 
     const [tabValue, setTabValue] = useState('All');
-    const [category, setCategory] = useState('all');
-    const [urlList, setUrlList] = useState([]);
+    const [urlList, setUrlList] = useState([' ']);
     const [page, setPage] = useState(1);
     const [maxPageNo, setMAxPAgeNo] = useState(10);
     const isInitialMount = useRef(true);
+    const classes = useStyles();
 
     const handleNavBarChange = (event, newValue) => {
         setTabValue(newValue);
     };
     const handlePageChange = (event, value) => {
         setPage(value);
-        featchURLsData(value, category)
+        featchURLsData(value, 'all')
     };
 
     const featchURLsData = async (pageNo, category) => {
@@ -82,16 +92,26 @@ export const URLList = () => {
         <Box>
             {
                 urlList.length ?
-                    <Box sx={{ overflowX: 'hidden', height: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '60px', top: '5px' }}>
+                    <Box sx={{ overflowX: 'hidden', height: '83vh', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '60px', top: '5px' }}>
                         {
                             urlList.map(url => {
                                 return (
-                                    <Link to={`${url._id}`}  key={url._id} style={{ textDecoration: 'none', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                                    <Link to={`${url._id}`} key={`${url._id}`} style={{ textDecoration: 'none', width: '100%', display: 'flex', justifyContent: 'center' }}>
                                         <URLItem imageURL={url.img} title={url.title} shortURL={url.shortURL} />
                                     </Link>
+
+
                                 )
                             })
                         }
+                        <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: 1,
+                            padding: 1,
+                        }}>
+                            <Pagination count={maxPageNo} page={page} classes={{ul: classes.ul}} onChange={handlePageChange} color='primary' />
+                        </Box>
                     </Box>
                     :
                     <Alert severity="error" sx={{ width: '100%', }}> Oops! No URLs found</Alert>
@@ -109,17 +129,7 @@ export const URLList = () => {
                 )}
             </BottomNavigation>
 
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                width: 1,
-                backgroundColor: 'whiteSmoke',
-                padding: 1,
-                position: 'fixed',
-                bottom: '50px',
-            }}>
-                <Pagination count={maxPageNo} page={page} onChange={handlePageChange} color='primary' />
-            </Box>
+
         </Box >
 
 

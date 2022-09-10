@@ -6,15 +6,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Fab from '@mui/material/Fab';
 import { URLInfo } from './URL_Info';
 import { ContainerStyle } from './../../styles/style';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { URLImg } from './URLImg';
-import { delete_url } from '../../config/shorten_URL_API';
+import { delete_url, import_url } from '../../config/shorten_URL_API';
 import { update_url_info, get_url_info } from './../../config/shorten_URL_API';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import Button from '@mui/material/Button';
 
-export const URL = ({ isAuth }) => {
+export const URL = ({ isAuth, currentUserID }) => {
     const jsonObj = {
         "_id": "",
         "title": "",
@@ -24,23 +25,29 @@ export const URL = ({ isAuth }) => {
         "shortURL": '',
         'userID': ''
     }
+    const location = useLocation();
     const [URLCategory, setURLCategory] = useState('');
     const [URLTitle, setURLTitle] = useState('');
     const [URLData, setURLData] = useState(jsonObj);
     const [openAlert, setOpenAlert] = useState(false);
-    const [authAlert, setAuthAlert] = useState(isAuth? false: true);
+    const [authAlert, setAuthAlert] = useState(!isAuth && location?.state?.displayTempMessage ? true : false);
     const URLID = useParams().id;
     const navigate = useNavigate();
     const isInitialMount = useRef(true);
+
+    const setURLInfo = (res) => {
+        setURLData(Object(res));
+        setURLCategory(res.category);
+        setURLTitle(res.title);
+
+    }
 
     useEffect(() => {
         async function getURLData() {
             if (isInitialMount.current) {
                 isInitialMount.current = false;
                 const res = await get_url_info(URLID);
-                setURLData(Object(res));
-                setURLCategory(res.category);
-                setURLTitle(res.title);
+                setURLInfo(res);
             }
         }
         getURLData();
@@ -52,6 +59,20 @@ export const URL = ({ isAuth }) => {
 
     const handleURLTitleInput = (event) => {
         setURLTitle(event.target.value);
+    }
+
+    const importURL = async () => {
+        const { originalURL, shortURL, userID, img, title, category } = URLData;
+        try {
+            const res = await import_url(originalURL, shortURL, userID, img, title, category);
+            setURLInfo(res);
+            navigate(`../my/urls/${res._id}`, { replace: true })
+            console.log(res);
+
+        } catch (error) {
+            console.log(error.message);
+
+        }
     }
 
     const deleteURL = async () => {
@@ -83,11 +104,12 @@ export const URL = ({ isAuth }) => {
         <Container component="main" sx={ContainerStyle}>
             <CssBaseline />
             <URLImg alt={URLData.title}
-                imgURL={URLData.img} />
+                imgURL={URLData.img}
+                width={{ xs: '100%', md: '60%' }} height={{ xs: '50%', md: '25%' }} />
             <URLInfo URL_category={URLCategory} URLTitle={URLTitle} URL={URLData.shortURL}
                 setURLTitle={handleURLTitleInput} setURLCategory={handleCategoryChange} isURLDisabled={true} />
             {
-                isAuth &&
+                isAuth && currentUserID === URLData.userID &&
 
                 <Box
                     sx={{
@@ -103,6 +125,19 @@ export const URL = ({ isAuth }) => {
                     <Fab color="error" aria-label="delete" sx={{ margin: 1 }} onClick={() => deleteURL()}>
                         <DeleteIcon />
                     </Fab>
+                </Box>
+            }
+            {
+                isAuth && currentUserID !== URLData.userID &&
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                }}>
+
+                    <Button color="primary" variant='contained' aria-label="add to my urls" sx={{ margin: 1 }} onClick={() => importURL()}>
+                        Add to My URLs
+                    </Button>
                 </Box>
             }
 

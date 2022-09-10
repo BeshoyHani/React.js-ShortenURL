@@ -1,7 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = false;
-axios.defaults.headers.Authorization = localStorage.getItem('isAuthenticated')? localStorage.getItem('access_token'): '';
-const baseURL = 'https://be-h.herokuapp.com';
+axios.defaults.headers.Authorization = localStorage.getItem('isAuthenticated') ? localStorage.getItem('access_token') : '';
+const baseURL = 'http://localhost:3000';//'https://be-h.herokuapp.com';
 
 export const login = async (username, password) => {
     let res;
@@ -47,6 +47,36 @@ export const shorten_url = async (url, title, category) => {
     try {
         const URL = baseURL + '/link/shorten';
         res = await axios.post(URL, data);
+        return res.data;
+    } catch (error) {
+        throw Error(error.response.data);
+    }
+}
+
+export const import_url = async (originalURL, shortURL, ownerID, img, title, category) => {
+    let res;
+    const data = {
+        originalURL,
+        shortURL,
+        ownerID,
+        img,
+        title,
+        category
+    }
+    try {
+        const URL = baseURL + '/link/import';
+        res = await axios.post(URL, data);
+        return res.data;
+    } catch (error) {
+        throw Error(error.response.data);
+    }
+}
+
+export const search = async (query) => {
+    let res;
+    try {
+        const URL = baseURL + `/link/search?query=${query}`;
+        res = await axios.get(URL);
         return res.data;
     } catch (error) {
         throw Error(error.response.data);

@@ -15,12 +15,12 @@ import { styled, alpha } from '@mui/material/styles';
 import { blue } from '@mui/material/colors';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 let settingsItems = [
     { 'name': 'Login', 'url': '/login' },
-    { 'name': 'Account', 'url': '' },
+    //{ 'name': 'Account', 'url': '' },
     { 'name': 'My URLs', 'url': 'my/urls' },
     { 'name': 'Logout', 'url': '/logout' },
 ];
@@ -73,6 +73,7 @@ export const Navbar = ({ username, isAuth }) => {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [searchValue, setSearchValue] = useState('');
     const [settings, setSettings] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setSettings(() =>
@@ -94,11 +95,16 @@ export const Navbar = ({ username, isAuth }) => {
     const handleSearchQuery = (event) => {
         const value = event.target.value;
         setSearchValue(value);
+        if (value.length) {
+            setTimeout(() => {
+                navigate(`/search/${value}`);
+            }, 1000)
+        }
     }
 
     const handleSearchSubmit = (event) => {
-        if (event.key === "Enter") {
-            console.log(event.keyCode)
+        if (event.key === "Enter" && searchValue.length > 0) {
+            navigate(`/search/${searchValue}`);
         }
     }
 
@@ -130,18 +136,22 @@ export const Navbar = ({ username, isAuth }) => {
 
 
                     <Box sx={{ display: 'flex' }}>
-                        <Search sx={{ marginRight: 3 }}>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{ 'aria-label': 'search' }}
-                                value={searchValue}
-                                onChange={handleSearchQuery}
-                                onKeyUp={handleSearchSubmit}
-                            />
-                        </Search>
+                        {
+                            isAuth &&
+                            <Search sx={{ marginRight: 3 }}>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    placeholder="Search…"
+                                    inputProps={{ 'aria-label': 'search' }}
+                                    value={searchValue}
+                                    autoFocus
+                                    onChange={handleSearchQuery}
+                                    onKeyUp={handleSearchSubmit}
+                                />
+                            </Search>
+                        }
 
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
@@ -168,9 +178,9 @@ export const Navbar = ({ username, isAuth }) => {
                                 {
                                     settings.map((setting) => (
                                         <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                                            <a href={'https://be-h.vercel.app/'+setting.url} style={{ textDecoration: 'none', color: 'black' }}>
+                                            <Link to={setting.url} style={{ textDecoration: 'none', color: 'black' }}>
                                                 <Typography textAlign="center">{setting.name}</Typography>
-                                            </a>
+                                            </Link>
                                         </MenuItem>
 
                                     ))}

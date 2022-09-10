@@ -43,7 +43,11 @@ export const ShortenURL = ({ URLTitle, setURLTitle, URLCategory, setURLCategory 
         try {
             setSubmitBtnStatus(true);
             const res = await shorten_url(URL.trim(), URLTitle.trim(), URLCategory);
-            navigate(`/my/urls/${res._id}`)
+            navigate(`/my/urls/${res._id}`, {
+                state: {
+                    displayTempMessage: true
+                }
+            })
         } catch (error) {
             console.log(error.message);
             setSubmitBtnStatus(false);

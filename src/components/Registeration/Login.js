@@ -53,6 +53,7 @@ export default function Login({ setUserInfo, setIsAuth }) {
         try {
             res = await login(email, password);
             setUserInfo(res.user);
+            localStorage.setItem('user_info', JSON.stringify(res.user));
             localStorage.setItem("isAuthenticated", true);
             setIsAuth(true);
             navigate('../', { replace: true });

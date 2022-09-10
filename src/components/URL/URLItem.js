@@ -22,15 +22,16 @@ export const URLItem = ({ imageURL, title, shortURL }) => {
             <Box sx={{
                 display: 'flex',
                 width: 1,
-                alignItems: 'center'
+                alignItems: 'center',
             }}>
-                <URLImg alt={"Top Gun Movie"} imgURL={imageURL} />
+                <URLImg alt={"Top Gun Movie"} imgURL={imageURL} width={{xs: 200, md: 350}} height={{xs: 150, md: 200}} />
 
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     width: 0.8,
-                    margin: 3
+                    marginRight: 3,
+                    marginLeft: 1,
                 }}>
                     <TextField
                         margin="normal"

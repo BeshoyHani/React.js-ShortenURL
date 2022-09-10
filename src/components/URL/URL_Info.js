@@ -10,7 +10,6 @@ import { Fab } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { useState } from 'react';
-import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 export const URLInfo = ({ setURLCategory, URL_category, URL, setURL, URLTitle, setURLTitle, isURLDisabled }) => {
 
@@ -44,8 +43,8 @@ export const URLInfo = ({ setURLCategory, URL_category, URL, setURL, URLTitle, s
             {
 
                 isCopied &&
-                <Snackbar open={isCopied} autoHideDuration={4000} onClose={()=> {setCopyStatus(false)}}>
-                    <Alert onClose={() =>{setCopyStatus(false)}} severity="success" sx={{ width: '100%' }}>
+                <Snackbar open={isCopied} autoHideDuration={4000} onClose={() => { setCopyStatus(false) }}>
+                    <Alert onClose={() => { setCopyStatus(false) }} severity="success" sx={{ width: '100%' }}>
                         Copied!
                     </Alert>
                 </Snackbar>
@@ -84,7 +83,7 @@ export const URLInfo = ({ setURLCategory, URL_category, URL, setURL, URLTitle, s
                     label="Title"
                     type="text"
                     id="title"
-                    autoComplete="current-password"
+                    autoComplete="title"
                     value={URLTitle}
                     onChange={setURLTitle}
                     sx={{ mr: 1 }}

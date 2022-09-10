@@ -1,6 +1,6 @@
 import './App.css';
 import { ShortenURL } from './components/URL/Shorten';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { URL } from './components/URL/URL';
 import { URLList } from './components/URL/URLList';
 import { Route, Routes } from 'react-router-dom';
@@ -11,13 +11,15 @@ import { useLocation } from 'react-router-dom'
 import { ProtectedRoute, ProtectRegisterationRoute } from './components/Protection/ProtectedRoute';
 import { Redirect } from './components/URL/Redirect';
 import Logout from './components/Registeration/Logout';
+import Search from './components/Search/Search';
 
 function App() {
 
-  const isAuthenticated = localStorage.getItem('isAuthenticated')? true: false;
+  const isAuthenticated = localStorage.getItem('isAuthenticated') ? true : false;
+  const user = localStorage.getItem('user_info') ? JSON.parse(localStorage.getItem('user_info')) : null;
   const [URLCategory, setURLCategory] = useState('None');
   const [URLTitle, setURLTitle] = useState('');
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState(user);
   const [isAuth, setIsAuth] = useState(isAuthenticated);
   const location = useLocation();
 
@@ -31,7 +33,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar username={userInfo ? userInfo.username.toUpperCase() : 'B'} isAuth={isAuth}/>
+      <Navbar username={userInfo ? userInfo.username.toUpperCase() : 'B'} isAuth={isAuth} />
       <Routes>
         <Route exact path='/login' element={
           <ProtectRegisterationRoute path={location.pathname} child={
@@ -63,7 +65,11 @@ function App() {
         } />
 
         <Route path='my/urls/:id' element={
-          <URL isAuth={isAuth}/>
+          <URL isAuth={isAuth} currentUserID={userInfo?.id} />
+        } />
+
+        <Route path='search/:query' element={
+          <Search />
         } />
 
         <Route path='/:id' element={
