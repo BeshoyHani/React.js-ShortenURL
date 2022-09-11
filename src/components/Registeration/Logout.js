@@ -20,6 +20,7 @@ export default function Logout({ setIsAuth }) {
     useEffect(() => {
         localStorage.removeItem("isAuthenticated");
         localStorage.removeItem("acess_token");
+        localStorage.removeItem('user_info');
         setIsAuth(false);
         navigate('../', { replace: true });
     })
