@@ -67,7 +67,6 @@ export const URL = ({ isAuth, currentUserID }) => {
             const res = await import_url(originalURL, shortURL, userID, img, title, category);
             setURLInfo(res);
             navigate(`../my/urls/${res._id}`, { replace: true })
-            console.log(res);
 
         } catch (error) {
             console.log(error.message);
