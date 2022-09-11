@@ -19,11 +19,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
     ul: {
-      "& .MuiPaginationItem-root": {
-        color: "#fff"
-      }
+        "& .MuiPaginationItem-root": {
+            color: "#fff"
+        }
     }
-  }));
+}));
 
 export const URLList = () => {
 
@@ -71,7 +71,7 @@ export const URLList = () => {
     const changeCategory = async (category) => {
         try {
             await getURLPagesCount(category);
-            await featchURLsData(page, category);
+            await featchURLsData(1, category); // Alwayes start wih page No 1
         } catch (error) {
             console.log(error.meg);
         }
@@ -86,13 +86,14 @@ export const URLList = () => {
             }
         }
         getURLData();
+        const scrollableDiv = document.getElementById('url_list_container');
+        scrollableDiv?.scrollTo(0, 0)
     });
-
     return (
         <Box>
             {
                 urlList.length ?
-                    <Box sx={{ overflowX: 'hidden', height: '83vh', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '60px', top: '5px' }}>
+                    <Box id="url_list_container" sx={{ overflowX: 'hidden', height: '83vh', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '60px', top: '5px' }}>
                         {
                             urlList.map(url => {
                                 return (
@@ -110,7 +111,7 @@ export const URLList = () => {
                             width: 1,
                             padding: 1,
                         }}>
-                            <Pagination count={maxPageNo} page={page} classes={{ul: classes.ul}} onChange={handlePageChange} color='primary' />
+                            <Pagination count={maxPageNo} page={page} classes={{ ul: classes.ul }} onChange={handlePageChange} color='primary' />
                         </Box>
                     </Box>
                     :

@@ -12,7 +12,7 @@ export const URLImg = ({ imgURL, alt, width, height }) => {
                 maxWidth: { xs: width.xs, md: width.md },
             }}
             alt={alt}
-            src={imgURL || 'https://res.cloudinary.com/dpecxlfg2/image/upload/v1662063078/urls_preview/images_rvmnod.png'}
+            src={imgURL || 'https://us.123rf.com/450wm/koblizeek/koblizeek1902/koblizeek190200055/125337077-no-image-vector-symbol-missing-available-icon-no-gallery-for-this-moment-.jpg?ver=6'}
         />
     );
 }

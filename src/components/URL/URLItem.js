@@ -23,13 +23,14 @@ export const URLItem = ({ imageURL, title, shortURL }) => {
                 display: 'flex',
                 width: 1,
                 alignItems: 'center',
+                justifyContent: 'space-between'
             }}>
-                <URLImg alt={"Top Gun Movie"} imgURL={imageURL} width={{xs: 200, md: 350}} height={{xs: 150, md: 200}} />
+                <URLImg alt={"Top Gun Movie"} imgURL={imageURL} width={{xs: '50%', md: 350}} height={{xs: 150, md: 200}} />
 
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    width: 0.8,
+                    width: 0.7,
                     marginRight: 3,
                     marginLeft: 1,
                 }}>

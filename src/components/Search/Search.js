@@ -36,7 +36,7 @@ export default function Search() {
                         {
                             searchResult.map(url => {
                                 return (
-                                    <Link to={`${url._id}`} key={`${url._id}`} style={{ textDecoration: 'none', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                                    <Link to={`../my/urls/${url._id}`} key={`${url._id}`} style={{ textDecoration: 'none', width: '100%', display: 'flex', justifyContent: 'center' }}>
                                         <URLItem imageURL={url.img} title={url.title} shortURL={url.shortURL} />
                                     </Link>
 
