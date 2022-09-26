@@ -13,7 +13,7 @@ export const URLItem = ({ imageURL, title, shortURL }) => {
     const [isCopied, setCopyStatus] = useState(false);
     const copyURL = (event) => {
         event.preventDefault();
-        navigator.clipboard.writeText(URL);
+        navigator.clipboard.writeText(shortURL);
         setCopyStatus(true);
         console.log('b')
     }
