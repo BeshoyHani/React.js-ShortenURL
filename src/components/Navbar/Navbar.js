@@ -129,7 +129,7 @@ export const Navbar = ({ username, isAuth }) => {
                                 textDecoration: 'none',
                             }}
                         >
-                            Besh
+                            Home
                         </Typography>
 
                     </Box>
